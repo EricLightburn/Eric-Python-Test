@@ -16,7 +16,7 @@ class Bank_Account:
 			self.balance-=amount
 			print("\n You Withdrew:", amount)
 		else:
-			print("\n Insufficient balance ")a
+			print("\n Insufficient balance ")
 
 	def display(self):
 		print("\n Net Available Balance=",self.balance)
