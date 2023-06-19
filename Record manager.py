@@ -1,5 +1,3 @@
-# Python program to create Bankaccount class
-# with both a deposit() and a withdraw() function
 class Bank_Account:
 	def __init__(self):
 		self.balance=0
@@ -17,16 +15,15 @@ class Bank_Account:
 			print("\n You Withdrew:", amount)
 		else:
 			print("\n Insufficient balance ")
-
+	money = 
+	interest = 0.043
+	year = float(input("How many years have you left your account?"))
+	total = money 
 	def display(self):
 		print("\n Net Available Balance=",self.balance)
 
-# Driver code
-
-# creating an object of class
 s = Bank_Account()
 
-# Calling functions with that class object
 s.deposit()
 s.withdraw()
 s.display()
