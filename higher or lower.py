@@ -3,11 +3,13 @@ guess = 0
 tries = 0
 number = randint(1,100)
 while (guess!=number):
-    guess = int(input("Choose a number between 1 and 100: ")) 
-    if (guess>number):
+    try:
+        guess = int(input("Choose a number between 1 and 100: ")) 
+        if (guess>=number):
             print("lower")
-    elif (guess<number):
+        if (guess<=number):
             print("higher")
-    tries = tries + 1 
-
+        tries = tries + 1 
+    except ValueError:
+        print("pick a number")
 print("It took you ", tries, " tries to guess the")
