@@ -2,7 +2,7 @@ import string #only need for line of code at the end containing string.
 import collections
 with open(r"c:\Users\training.user\Documents\words.txt", "r") as f:
     words = f.read().split()
-letter_counts = {}
+    letter_counts = {}
 for word in words:
     word = word.lower()
     for letter in word:
