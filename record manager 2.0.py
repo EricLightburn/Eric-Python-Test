@@ -24,7 +24,7 @@ class Records:
                 count = len(countRecords.readlines()[1:])
 
                 if count == 0:
-                    print("There are no records!!")
+                    print("There are no records.")
                     print()
                 else:
                     with open(r"c:\Users\training.user\Downloads\record.txt.txt", "r") as readRecords:
@@ -58,7 +58,7 @@ while True:
             with open(r"c:\Users\training.user\Downloads\record.txt.txt", "r+") as readFirstLine:
                 first = readFirstLine.readlines()[0][0]
                 if first != "#":
-                    readFirstLine.write("#\t\t\tName\t\t\t        Age\t\t\t        Interests\n")
+                    readFirstLine.write("#\t\t\tName\t\t\t        Age" +  "\t" * 3 + "        Interests\n")
         else:
             createFile()
     else:
@@ -67,7 +67,7 @@ while True:
     print("==========================================================")
     print(" ~ ----------------- Record Manager -------------------- ~")
     print("===========================================================")
-    print("Available Operators:")
+    print("Choose an option:")
     print("A) Add Record\t\tB) View Record")
     print("C) Delete record\tD) Clear Records")
     print("E. Exit\n")
