@@ -8,6 +8,6 @@ while (guess!=number):
             print("lower")
     elif (guess<number):
             print("higher")
-    tries = tries + 1
+    tries = tries + 1 
 
-print("It took you "+ str(tries) + " tries to guess the")
+print("It took you ", tries, " tries to guess the")
