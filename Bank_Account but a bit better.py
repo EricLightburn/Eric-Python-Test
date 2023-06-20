@@ -10,20 +10,20 @@ class Bank_Account:
 
 	def withdraw(self):
 		amount = float(input("Enter amount to be Withdrawn: "))
-		if self.balance>=amount:
-			self.balance-=amount
-			print("\n You Withdrew:", amount)
+		if self.balance<amount:
+			print("\n Insufficient balance")
 		else:
-			print("\n Insufficient balance ")
-	money = 
-	interest = 0.043
-	year = float(input("How many years have you left your account?"))
-	total = money 
-	def display(self):
-		print("\n Net Available Balance=",self.balance)
+			self.balance -= amount
+			print("\n You Withdrew: ", amount)
+			year = float(input("How many years have you left your account?: "))
+			interest = 0.05
+			compound_final = self.balance * ((1 + interest / 1) ** year)
+			self.balance = compound_final
+			print("\n You have left your account for: ", year, " years and you have a ") 
+			print("\n Net Available Balance of",self.balance)
 
 s = Bank_Account()
 
 s.deposit()
 s.withdraw()
-s.display()
+
