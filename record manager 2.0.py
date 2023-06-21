@@ -19,7 +19,7 @@ class Records:
             age = input("Enter your age: ")
             interests = input("Enter your interest: ")
             with open(r"c:\Users\training.user\Downloads\record.txt", "a") as writeRecord:
-                writeRecord.write(f"{num}\t\t\t{name}\t\t\t{age}\t\t\t{interests}\n")
+                writeRecord.write(f"{num}\t\t\t{name}\t\t\t\t{age}\t\t\t\t{interests}\n")
         elif choice == "B":
             with open(r"c:\Users\training.user\Downloads\record.txt", "r") as countRecords:
                 count = len(countRecords.readlines()[1:])
@@ -58,7 +58,7 @@ while True:
             with open(r"c:\Users\training.user\Downloads\record.txt", "r+") as readFirstLine:
                 first = readFirstLine.readlines()[0][0]
                 if first != "#":
-                    readFirstLine.write("#\t\t\tName\t\t\t        Age\t\t\t        Interests\n")
+                    readFirstLine.write("#\t\t\tName\t\t\t       Age\t\t\t       Interests\n")
         else:
             createFile()
     else:
