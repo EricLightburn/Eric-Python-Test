@@ -1,7 +1,16 @@
 import os
 from pathlib import Path
-import sys 
+import sys
 
+class Color:
+    RED = '\033[31m'
+    GREEN = '\033[32m'
+    YELLOW = '\033[33m'
+    BLUE = '\033[34m'
+    MAGENTA = '\033[35m'
+    CYAN = '\033[36m'
+    WHITE = '\033[37m'
+    RESET = '\033[0m'
 class Record:
     def __init__(self, name, age, interests):
         self.name = name
@@ -16,15 +25,14 @@ class RecordFile:
     
     def create_file(self):
         with open(self.file_path, "w+") as create:
-            create.write("#\t\t\tName\t\t\t\t\tAge\t\t\t\tInterests\n")
-    
+            create.write(f"{Color.BLUE}#\t\t\tName\t\t\t\t\tAge\t\t\t\tInterests{Color.RESET}\n")
     def read_records(self):
         records = []
         with open(self.file_path, "r") as records_file:
             for line in records_file.readlines()[1:]:
                 fields = line.strip().split("\t")
                 if len(fields) < 4:
-                    print(f"Error: Line '{line.strip()}' does not have the expected format.")
+                    print(f"{Color.RED}Error: Line '{line.strip()}' does not have the expected format.{Color.RESET}")
                     continue
                 record = Record(fields[1], fields[2], fields[3])
                 records.append(record)
@@ -52,7 +60,7 @@ class RecordManager:
     
     def view_records(self):
         if len(self.records) == 0:
-            print("There are no records")
+            print(f"{Color.YELLOW}There are no records{Color.RESET}")
             print()
         else:
             with open(self.record_file.file_path, "r") as readRecords:
@@ -61,7 +69,7 @@ class RecordManager:
         self.records = []
         with open(self.record_file.file_path, "w") as f:
             f.truncate(0)
-            f.write("#\t\t\tName\t\t\t\tAge\t\t\t\tInterests\t\t\t\n")
+            f.write(f"{Color.BLUE}#\t\t\tName\t\t\t\tAge\t\t\t\tInterests{Color.RESET}\n")
     def delete_record(self):
         try:
             record_id = int(input("Enter Record #: ")) - 1
@@ -72,10 +80,9 @@ class RecordManager:
             self.record_file.create_file()
             for i, record in enumerate(self.records):
                 self.record_file.write_record(i+1, record)
-            print("Record deleted successfully.")
+            print(f"{Color.GREEN}Record deleted successfully.{Color.RESET}")
         except ValueError as e:
-            print(e)
-
+            print(f"{Color.RED}{e}{Color.RESET}")
     def find_records(self):
         name = input("Enter name to search for: ")
         with open(self.record_file.file_path, "r") as f:
@@ -84,14 +91,14 @@ class RecordManager:
                     print(line)
 manager = RecordManager()
 
-while True:            #print inside loop- displayed after completing any option
-    print("==========================================================")
-    print(" ~ ----------------- Record Manager --------------------- ~")
-    print("===========================================================")
+while True:            
+    print(f"{Color.CYAN}=========================================================={Color.RESET}")
+    print(f"{Color.CYAN} ~ ----------------- Record Manager --------------------- ~{Color.RESET}")
+    print(f"{Color.CYAN}==========================================================={Color.RESET}")
     print("Available Options:")
-    print("A) Add Record\t\tB) View Record")
-    print("C) Delete Record\tD) Clear Records")
-    print("E) Exit Manager\t\tF) Find Records \n")
+    print(f"A) {Color.GREEN}Add Record{Color.RESET}\tB) {Color.YELLOW}View Record{Color.RESET}")
+    print(f"C) {Color.RED}Delete Record{Color.RESET}\tD) {Color.MAGENTA}Clear Records{Color.RESET}")
+    print(f"E) {Color.WHITE}Exit Manager{Color.RESET}\tF) {Color.BLUE}Find Records{Color.RESET} \n")
 
     selection = input('Enter selection: ').upper()
     if selection == 'A':
