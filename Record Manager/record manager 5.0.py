@@ -44,7 +44,7 @@ class RecordFile:
 
 class RecordManager:
     def __init__(self):
-        file_path = os.path.join(r"c:\Users\training.user\Downloads\record.txt")
+        file_path = os.path.join("record.txt")
         self.record_file = RecordFile(file_path)
         self.records = self.record_file.read_records()
         self.record_count = len(self.records)
