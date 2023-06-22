@@ -12,6 +12,7 @@ class RecordManager:
     def __init__(self):
         self.file_path = r"c:\Users\training.user\Downloads\record.txt"
         self.records = []
+        self.record_count = 0
         self.load_records()
     def load_records(self):
         if not Path(self.file_path).exists():
@@ -19,6 +20,9 @@ class RecordManager:
         with open(self.file_path, "r") as records:
             for line in records.readlines()[1:]:
                 fields = line.strip().split("\t")
+                if len(fields) < 4:
+                    print(f"Error: Line '{line.strip()}' does not have the expected format.")   #error handling to continue code even if format is not correct
+                    continue
                 record = Record(fields[1], fields[2], fields[3])
                 self.records.append(record)
     def create_file(self):
@@ -29,9 +33,10 @@ class RecordManager:
         age = input("Enter your age: ")
         interests = input("Enter your interest: ")
         record = Record(name, age, interests)
+        self.record_count += 1                          #record count clearly shows which record is which number
         self.records.append(record)
         with open(self.file_path, "a") as writeRecord:
-            writeRecord.write(f"\t\t\t{name}\t\t\t\t{age}\t\t\t\t{interests}\n")
+            writeRecord.write(f"{self.record_count}\t\t\t{name}\t\t\t\t{age}\t\t\t\t{interests}\n")  #record count under #
     def view_records(self):
         if len(self.records) == 0:
             print("There are no records")
@@ -61,18 +66,17 @@ class RecordManager:
             for line in f:
                 if name in line:
                     print(line)
-
-print("==========================================================")
-print(" ~ ----------------- Record Manager --------------------- ~")
-print("===========================================================")
-print("Available Operators:")
-print("A) Add Record\t\tB) View Record")
-print("C) Delete record\tD) Clear Records")
-print("E) Exit manager\t\tF) Find Records \n")
-
 manager = RecordManager()
 
-while True:
+while True:            #print in loop so displayed after completing any option
+    print("==========================================================")
+    print(" ~ ----------------- Record Manager --------------------- ~")
+    print("===========================================================")
+    print("Available Options:")
+    print("A) Add Record\t\tB) View Record")
+    print("C) Delete Record\tD) Clear Records")
+    print("E) Exit Manager\t\tF) Find Records \n")
+
     selection = input('Enter selection: ').upper()
     if selection == 'A':
         manager.add_record()
