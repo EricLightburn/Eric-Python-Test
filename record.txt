@@ -1,0 +1,2 @@
+#			Name				Age				Interests
+1			eric				15				computing

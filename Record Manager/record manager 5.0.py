@@ -69,7 +69,7 @@ class RecordManager:
         self.records = []
         with open(self.record_file.file_path, "w") as f:
             f.truncate(0)
-            f.write(f"{Color.BLUE}#\t\t\tName\t\t\t\tAge\t\t\t\tInterests{Color.RESET}\n")
+            f.write(f"#\t\t\tName\t\t\t\tAge\t\t\t\tInterests\n")
     def delete_record(self):
         try:
             record_id = int(input("Enter Record #: ")) - 1
