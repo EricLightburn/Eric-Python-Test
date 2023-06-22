@@ -33,5 +33,10 @@ class RecordManager:
         self.records.append(record)
         with open(self.file_path, "a") as writeRecord:
             writeRecord.write(f"\t\t\t{name}\t\t\t{age}\t\t\t{interests}\n")
-manager = RecordManager()
-manager.add_record()
+    def view_records(self):
+        if len(self.records) == 0:
+            print("There are no records")
+            print()
+        else:
+            with open(self.file_path, "r") as readRecords:
+                print(readRecords.read())
