@@ -50,7 +50,7 @@ class RecordFile:
 
 class RecordManager:
     def __init__(self):
-        file_path = os.path.join(r"c:\Users\training.user\Downloads\record.xlsx")
+        file_path = os.path.join("record.xlsx")
         self.record_file = RecordFile(file_path)
         self.records = self.record_file.read_records()
         self.record_count = len(self.records)
