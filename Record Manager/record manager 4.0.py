@@ -25,3 +25,13 @@ class RecordManager:
     def create_file(self):
             with open(self.file_path, "w+") as create:
                 create.write("#\t\t\tName\t\t\tAge\t\t\tInterests")
+    def add_record(self):
+        name = input("Enter your name: ")
+        age = input("Enter your age: ")
+        interests = input("Enter your interest: ")
+        record = Record(name, age, interests)
+        self.records.append(record)
+        with open(self.file_path, "a") as writeRecord:
+            writeRecord.write(f"\t\t\t{name}\t\t\t{age}\t\t\t{interests}\n")
+manager = RecordManager()
+manager.add_record()
