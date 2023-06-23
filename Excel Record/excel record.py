@@ -105,16 +105,19 @@ class RecordManager:
                 for cell in row:
                     print(cell.value, end='\t')
                     print()
+    def get_option(self):
+        '''Displays the main menu and prompts user to choose an option'''
+        print(f"{Color.CYAN}=========================================================={Color.RESET}")
+        print(f"{Color.CYAN} ~ ----------------- Record Manager --------------------- ~{Color.RESET}")
+        print(f"{Color.CYAN}==========================================================={Color.RESET}")
+        print("Available Options:")
+        print(f"A) {Color.GREEN}Add Record{Color.RESET}\tB) {Color.YELLOW}View Record{Color.RESET}")
+        print(f"C) {Color.RED}Delete Record{Color.RESET}\tD) {Color.MAGENTA}Clear Records{Color.RESET}")
+        print(f"E) {Color.WHITE}Exit Manager{Color.RESET}\tF) {Color.BLUE}Find Records{Color.RESET}")
+        option = input("Select an option: ").upper()
+        return option                
 manager = RecordManager()
 while True:            
-    print(f"{Color.CYAN}=========================================================={Color.RESET}")
-    print(f"{Color.CYAN} ~ ----------------- Record Manager --------------------- ~{Color.RESET}")
-    print(f"{Color.CYAN}==========================================================={Color.RESET}")
-    print("Available Options:")
-    print(f"A) {Color.GREEN}Add Record{Color.RESET}\tB) {Color.YELLOW}View Record{Color.RESET}")
-    print(f"C) {Color.RED}Delete Record{Color.RESET}\tD) {Color.MAGENTA}Clear Records{Color.RESET}")
-    print(f"E) {Color.WHITE}Exit Manager{Color.RESET}\tF) {Color.BLUE}Find Records{Color.RESET} \n")
-    selection = input('Enter selection: ').upper()
     if __name__ == "__main__":
         manager = RecordManager()
     while True:            
