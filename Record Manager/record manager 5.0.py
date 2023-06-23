@@ -25,7 +25,7 @@ class RecordFile:
     def create_file(self):
         '''Creates a new file and writes the heading'''
         with open(self.file_path, "w+") as create:
-            create.write(f"{Color.BLUE}#\t\t\tName\t\t\t\t\tAge\t\t\t\tInterests{Color.RESET}\n")
+            create.write(f"#\t\t\tName\t\t\t\t\tAge\t\t\t\tInterests\n")
     def read_records(self):
         '''Reads records from the file and returns them as a list of Record objects'''
         records = []
