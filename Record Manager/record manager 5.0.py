@@ -55,8 +55,9 @@ class RecordManager:
             print(f"{Color.YELLOW}There are no records{Color.RESET}")
             print()
         else:
-            with open(self.record_file.file_path, "r") as readRecords:
-                print(readRecords.read())
+            print(f"{Color.BLUE}#\t\t\tName\t\t\t\t\tAge\t\t\t\tInterests{Color.RESET}\n")
+        for i, record in enumerate(self.records):
+            print(f"{i+1}\t\t\t{record.name}\t\t\t\t\t{record.age}\t\t\t\t{record.interests}")
     def clear_records(self):
         self.records = []
         with open(self.record_file.file_path, "w") as f:
@@ -77,10 +78,13 @@ class RecordManager:
             print(f"{Color.RED}{e}{Color.RESET}")
     def find_records(self):
         name = input("Enter name to search for: ")
-        with open(self.record_file.file_path, "r") as f:
-            for line in f:
-                if name in line:
-                    print(line)
+        found = False
+        for record in self.records:
+            if name.lower() in record.name.lower():
+                print(f"{record.name} is {record.age} and likes {record.interests}")
+                found = True
+        if not found:
+            print(f"No records found with name '{name}'")
     def get_option(self):
         print(f"{Color.CYAN}=========================================================={Color.RESET}")
         print(f"{Color.CYAN} ~ ----------------- Record Manager --------------------- ~{Color.RESET}")
