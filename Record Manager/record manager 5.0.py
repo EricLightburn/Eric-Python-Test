@@ -33,7 +33,7 @@ class RecordFile:
             for line in records_file.readlines()[1:]:
                 fields = line.strip().split("\t")
                 if len(fields) < 4:
-                    print(f"{Color.RED}Error: Line '{line.strip()}' does not have the expected format.{Color.RESET}")
+                    #print(f"{Color.RED}Error: Line '{line.strip()}' does not have the expected format.{Color.RESET}")
                     continue
                 record = Record(fields[1], fields[2], fields[3])
                 records.append(record)
@@ -41,7 +41,7 @@ class RecordFile:
     def write_record(self, record_count, record):
         '''Writes a single record to the file'''
         with open(self.file_path, "a") as writeRecord:
-            writeRecord.write(f"{record_count},{record.name},{record.age},{record.interests}\n")
+            writeRecord.write(f"{record_count}\t\t\t{record.name}\t\t\t\t{record.age}\t\t\t\t{record.interests}\n")
 class RecordManager:
     '''Provides an interface for adding, viewing, deleting, clearing and finding records'''
     def __init__(self):
@@ -90,18 +90,20 @@ class RecordManager:
     def find_records(self):
         '''Prompts the user for info and displays matching records'''
         search_type = input("Search by name or age? ")
+        if search_type.lower() not in ["name", "age"]:
+            print(f"Invalid search type: '{search_type}'. Please enter 'name' or 'age'.")
+            return
         search_value = input(f"Enter {search_type} to search for: ")
         found = False
         for record in self.records:
             if search_type.lower() == "name" and search_value.lower() in record.name.lower():
-                print(f"{record.name} is {record.age} and likes {record.interests}")
+                print(f"{record.name}\t\t\t{record.age}\t\t\t{record.interests}")
                 found = True
             elif search_type.lower() == "age" and str(record.age) == search_value:
                 print(f"{record.name} is {record.age} and likes {record.interests}")
                 found = True
         if not found:
             print(f"No records found with the {search_type}: '{search_value}'")
-
     def get_option(self):
         '''Displays the main menu and prompts user to choose an option'''
         print(f"{Color.CYAN}=========================================================={Color.RESET}")
