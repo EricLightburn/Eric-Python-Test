@@ -1,7 +1,1 @@
 #			Name				Age				Interests
-2,eric,15,computing
-3,daniel,15,engineering
-4,brayden,15,long walks with fmaily
-1,eric,15,computing
-2,daniel,15,guy
-3,marcus,15,code
