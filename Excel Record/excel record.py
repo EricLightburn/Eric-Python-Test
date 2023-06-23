@@ -3,6 +3,7 @@ from openpyxl import Workbook, load_workbook
 import sys
 
 class Color:
+    '''Defines colour codes for use in terminal'''
     RED = '\033[31m'
     GREEN = '\033[32m'
     YELLOW = '\033[33m'
@@ -12,11 +13,13 @@ class Color:
     WHITE = '\033[37m'
     RESET = '\033[0m'
 class Record:
+    '''Represents a single record with name, age, and interests'''
     def __init__(self, name, age, interests):
         self.name = name
         self.age = age
         self.interests = interests
 class RecordFile:
+    '''Manages reading and writing records to the file'''
     def __init__(self, file_path):
         self.file_path = file_path
         if not os.path.exists(self.file_path):
@@ -30,6 +33,7 @@ class RecordFile:
         ws['D1'] = 'Interests'
         wb.save(self.file_path)
     def read_records(self):
+        '''Reads records from the file and returns them as a list of Record objects'''
         records = []
         wb = load_workbook(self.file_path)
         ws = wb.active
@@ -38,17 +42,20 @@ class RecordFile:
             records.append(record)
         return records
     def write_record(self, record_count, record):
+        '''Writes a single record to the file'''
         wb = load_workbook(self.file_path)
         ws = wb.active
         ws.append([record_count, record.name, record.age, record.interests])
         wb.save(self.file_path)
 class RecordManager:
+    '''Provides an interface for adding, viewing, deleting, clearing and finding records'''
     def __init__(self):
         file_path = os.path.join("record.xlsx")
         self.record_file = RecordFile(file_path)
         self.records = self.record_file.read_records()
         self.record_count = len(self.records)
     def add_record(self):
+        '''Prompts the user for info and adds it to a new record'''
         name = input("Enter your name: ")
         age = input("Enter your age: ")
         interests = input("Enter your interest: ")
@@ -57,6 +64,7 @@ class RecordManager:
         self.records.append(record)
         self.record_file.write_record(self.record_count, record)
     def view_records(self):
+        '''Displays all records in terminal'''
         if len(self.records) == 0:
             print(f"{Color.YELLOW}There are no records{Color.RESET}")
             print()
@@ -68,11 +76,13 @@ class RecordManager:
                     print(cell.value, end='\t')
                 print()
     def clear_records(self):
+        '''Clears all records from the file and record list'''
         self.records = []
         with open(self.record_file.file_path, "w") as f:
             f.truncate(0)
             f.write(f"{Color.BLUE}#\t\t\tName\t\t\t\tAge\t\t\t\tInterests{Color.RESET}\n")
     def delete_record(self):
+        '''Prompts the user for a record number and deletes the one chosen'''
         try:
             record_id = int(input("Enter Record #: ")) - 1
             if not (0 <= record_id < len(self.records)):
@@ -86,6 +96,7 @@ class RecordManager:
         except ValueError as e:
             print(f"{Color.RED}{e}{Color.RESET}")
     def find_records(self):
+        '''Prompts the user to search for info'''
         name = input("Enter name to search for: ")
         wb = load_workbook(self.record_file.file_path)
         ws = wb.active
