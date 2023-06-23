@@ -134,4 +134,3 @@ if __name__ == "__main__":
                 manager.find_records()
             case _:
                 print("Invalid selection. Please try again.")
-
