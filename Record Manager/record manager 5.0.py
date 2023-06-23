@@ -35,7 +35,7 @@ class RecordFile:
         return records
     def write_record(self, record_count, record):
         with open(self.file_path, "a") as writeRecord:
-            writeRecord.write(f"{record_count}\t\t\t{record.name}\t\t\t\t{record.age}\t\t\t\t{record.interests}\n")
+            writeRecord.write(f"{record_count},{record.name},{record.age},{record.interests}\n")
 class RecordManager:
     def __init__(self):
         file_path = os.path.join("record.txt")
@@ -95,17 +95,19 @@ if __name__ == "__main__":
     manager = RecordManager()
     while True:            
         option = manager.get_option()
-        if option == "A":
-            manager.add_record()
-        elif option == "B":
-            manager.view_records()
-        elif option == "C":
-            manager.delete_record()
-        elif option == "D":
-            manager.clear_records()
-        elif option == "E":
-            sys.exit(0)
-        elif option == "F":
-            manager.find_records()
-        else:
-            print("Invalid selection. Please try again.")
+        match option:
+            case "A":
+                manager.add_record()
+            case "B":
+                manager.view_records()
+            case "C":
+                manager.delete_record()
+            case "D":
+                manager.clear_records()
+            case "E":
+                sys.exit(0)
+            case "F":
+                manager.find_records()
+            case _:
+                print("Invalid selection. Please try again.")
+
