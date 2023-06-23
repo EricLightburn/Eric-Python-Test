@@ -1,6 +1,7 @@
 import os
 import sys
 class Color:
+    '''Defines colour codes for use in terminal'''
     RED = '\033[31m'
     GREEN = '\033[32m'
     YELLOW = '\033[33m'
@@ -10,19 +11,23 @@ class Color:
     WHITE = '\033[37m'
     RESET = '\033[0m'
 class Record:
+    '''Represents a single record with name, age, and interests'''
     def __init__(self, name, age, interests):
         self.name = name
         self.age = age
         self.interests = interests
 class RecordFile:
+    '''Manages reading and writing records to the file'''
     def __init__(self, file_path):
         self.file_path = file_path
         if not os.path.exists(self.file_path):
             self.create_file()
     def create_file(self):
+        '''Creates a new file and writes the heading'''
         with open(self.file_path, "w+") as create:
             create.write(f"{Color.BLUE}#\t\t\tName\t\t\t\t\tAge\t\t\t\tInterests{Color.RESET}\n")
     def read_records(self):
+        '''Reads records from the file and returns them as a list of Record objects'''
         records = []
         with open(self.file_path, "r") as records_file:
             for line in records_file.readlines()[1:]:
@@ -34,15 +39,18 @@ class RecordFile:
                 records.append(record)
         return records
     def write_record(self, record_count, record):
+        '''Writes a single record to the file'''
         with open(self.file_path, "a") as writeRecord:
             writeRecord.write(f"{record_count},{record.name},{record.age},{record.interests}\n")
 class RecordManager:
+    '''Provides an interface for adding, viewing, deleting, clearing and finding records'''
     def __init__(self):
         file_path = os.path.join("record.txt")
         self.record_file = RecordFile(file_path)
         self.records = self.record_file.read_records()
         self.record_count = len(self.records)
     def add_record(self):
+        '''Prompts the user for info and adds it to a new record'''
         name = input("Enter your name: ")
         age = input("Enter your age: ")
         interests = input("Enter your interest: ")
@@ -51,6 +59,7 @@ class RecordManager:
         self.records.append(record)
         self.record_file.write_record(self.record_count, record)
     def view_records(self):
+        '''Displays all records in terminal'''
         if len(self.records) == 0:
             print(f"{Color.YELLOW}There are no records{Color.RESET}")
             print()
@@ -59,11 +68,13 @@ class RecordManager:
         for i, record in enumerate(self.records):
             print(f"{i+1}\t\t\t{record.name}\t\t\t\t\t{record.age}\t\t\t\t{record.interests}")
     def clear_records(self):
+        '''Clears all records from the file and record list'''
         self.records = []
         with open(self.record_file.file_path, "w") as f:
             f.truncate(0)
             f.write(f"#\t\t\tName\t\t\t\tAge\t\t\t\tInterests\n")
     def delete_record(self):
+        '''Prompts the user for a record number and deletes the one chosen'''
         try:
             record_id = int(input("Enter Record #: ")) - 1
             if not (0 <= record_id < len(self.records)):
@@ -77,15 +88,22 @@ class RecordManager:
         except ValueError as e:
             print(f"{Color.RED}{e}{Color.RESET}")
     def find_records(self):
-        name = input("Enter name to search for: ")
+        '''Prompts the user for info and displays matching records'''
+        search_type = input("Search by name or age? ")
+        search_value = input(f"Enter {search_type} to search for: ")
         found = False
         for record in self.records:
-            if name.lower() in record.name.lower():
+            if search_type.lower() == "name" and search_value.lower() in record.name.lower():
+                print(f"{record.name} is {record.age} and likes {record.interests}")
+                found = True
+            elif search_type.lower() == "age" and str(record.age) == search_value:
                 print(f"{record.name} is {record.age} and likes {record.interests}")
                 found = True
         if not found:
-            print(f"No records found with name '{name}'")
+            print(f"No records found with the {search_type}: '{search_value}'")
+
     def get_option(self):
+        '''Displays the main menu and prompts user to choose an option'''
         print(f"{Color.CYAN}=========================================================={Color.RESET}")
         print(f"{Color.CYAN} ~ ----------------- Record Manager --------------------- ~{Color.RESET}")
         print(f"{Color.CYAN}==========================================================={Color.RESET}")
