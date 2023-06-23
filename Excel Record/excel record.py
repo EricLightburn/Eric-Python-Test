@@ -115,17 +115,22 @@ while True:
     print(f"C) {Color.RED}Delete Record{Color.RESET}\tD) {Color.MAGENTA}Clear Records{Color.RESET}")
     print(f"E) {Color.WHITE}Exit Manager{Color.RESET}\tF) {Color.BLUE}Find Records{Color.RESET} \n")
     selection = input('Enter selection: ').upper()
-    if selection == 'A':
-        manager.add_record()
-    elif selection == 'B':
-        manager.view_records()
-    elif selection == 'C':
-        manager.delete_record()
-    elif selection == 'D':
-        manager.clear_records()
-    elif selection == 'F':
-        manager.find_records()
-    elif selection == 'E':
-        sys.exit()
-    else:
-        print("Invalid selection. Please try again.")
+    if __name__ == "__main__":
+        manager = RecordManager()
+    while True:            
+        option = manager.get_option()
+        match option:
+            case "A":
+                manager.add_record()
+            case "B":
+                manager.view_records()
+            case "C":
+                manager.delete_record()
+            case "D":
+                manager.clear_records()
+            case "E":
+                sys.exit(0)
+            case "F":
+                manager.find_records()
+            case _:
+                print("Invalid selection. Please try again.")
